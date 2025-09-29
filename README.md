@@ -33,7 +33,7 @@ This codebase has been thoroughly debugged and the following critical issues hav
 ## 🛠️ Setup Instructions
 
 ### Prerequisites
-- Node.js 18+
+- Node.js 18+ 
 - npm or pnpm
 - Supabase account
 - Clerk account
@@ -223,7 +223,7 @@ The app uses Clerk for authentication with the following setup:
 The application uses Supabase with the following main entities:
 - **Projects** - Portfolio items with images and details
 - **Services** - Company service offerings
-- **News** - Blog posts and company updates
+- **News** - Blog posts and company updates  
 - **Inquiries** - Contact form submissions
 
 ## 🎨 Styling

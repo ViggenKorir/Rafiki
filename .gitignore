@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+.next/
+
+# Env files
+.env
+.env.local
+.env.example
+
+# Misc
+.DS_Store
+.vscode/
+.idea/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.
+
+# clerk configuration (can include secrets)
+/.clerk/

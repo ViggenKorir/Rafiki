@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+
+  body {
+    @apply bg-neutral-50 text-gray-900 antialiased;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+  }
+}
+
+@layer components {
+  /* Button Styles */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700;
+  }
+
+  .btn-secondary {
+    @apply bg-amber-500 text-white hover:bg-amber-600;
+  }
+
+  .btn-outline {
+    @apply border border-gray-300 bg-white hover:bg-gray-50 hover:text-gray-900;
+  }
+
+  /* Card Styles */
+  .card {
+    @apply rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:shadow-md;
+  }
+
+  /* Input Styles */
+  .input {
+    @apply flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  /* Section Styles */
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  /* Container */
+  .container {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Typography */
+  .heading-1 {
+    @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+  }
+
+  .heading-2 {
+    @apply scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0;
+  }
+
+  .heading-3 {
+    @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+  }
+
+  .paragraph {
+    @apply leading-7;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Animation Classes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-in-out;
+}
+
+.scale-in {
+  animation: scaleIn 0.3s ease-in-out;
+}
