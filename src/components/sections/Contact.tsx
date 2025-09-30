@@ -1,68 +1,131 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Mail, Phone, MapPin } from "lucide-react";
 
-const contactSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().min(10, "Phone number must be at least 10 digits"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-  project_type: z.string().min(1, "Please select a project type"),
-});
+export const Contact = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const [projectType, setProjectType] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-type ContactFormData = z.infer<typeof contactSchema>;
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError("");
+    setSuccess(false);
+    setLoading(true);
 
-export function Contact() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
+    if (!name.trim()) {
+      setError("Name is required");
+      setLoading(false);
+      return;
+    }
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
-  });
+    if (name.trim().length < 2) {
+      setError("Name must be at least 2 characters");
+      setLoading(false);
+      return;
+    }
 
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
+    if (!email) {
+      setError("Email address is required");
+      setLoading(false);
+      return;
+    }
+
+    if (
+      !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+        email,
+      )
+    ) {
+      setError("Invalid email address");
+      setLoading(false);
+      return;
+    }
+
+    if (!phone.trim()) {
+      setError("Phone number is required");
+      setLoading(false);
+      return;
+    }
+
+    if (phone.trim().length < 10) {
+      setError("Phone number must be at least 10 digits");
+      setLoading(false);
+      return;
+    }
+
+    if (!projectType) {
+      setError("Please select a project type");
+      setLoading(false);
+      return;
+    }
+
+    if (!message.trim()) {
+      setError("Message is required");
+      setLoading(false);
+      return;
+    }
+
+    if (message.trim().length < 5) {
+      setError("Message must be at least 5 characters");
+      setLoading(false);
+      return;
+    }
+
     try {
-      // Replace with your actual API endpoint
-      const response = await fetch("/api/contact", {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          message,
+          project_type: projectType,
+        }),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to submit form");
-      }
+      const data = await res.json();
 
-      setSubmitSuccess(true);
-      reset();
-    } catch (error) {
-      console.error("Error submitting form:", error);
+      if (res.ok && data.success) {
+        setSuccess(true);
+        setName("");
+        setEmail("");
+        setPhone("");
+        setMessage("");
+        setProjectType("");
+      } else {
+        console.error("❌ Submission failed:", {
+          status: res.status,
+          data,
+        });
+        // Handle validation errors from API
+        if (data?.errors && Array.isArray(data.errors)) {
+          const errorMessages = data.errors
+            .map((err: any) => err.message)
+            .join(", ");
+          setError(errorMessages);
+        } else {
+          setError(data?.message || "Something went wrong. Please try again.");
+        }
+      }
+    } catch (err) {
+      console.error("Contact form error:", err);
+      setError("Network error. Please try again.");
     } finally {
-      setIsSubmitting(false);
+      setLoading(false);
     }
   };
 
   return (
-    <section id="contact" className="relative bg-white py-24 sm:py-32">
-      <div className="absolute inset-0">
-        <div className="h-1/3 bg-gray-50 sm:h-2/3" />
-      </div>
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
+    <section id="contact" className="relative bg-gray-50 py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center mb-12">
           <h2 className="text-base font-semibold leading-7 text-blue-600">
             Contact Us
           </h2>
@@ -75,22 +138,16 @@ export function Contact() {
           </p>
         </div>
 
-        <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-x-8 gap-y-12 lg:grid-cols-2">
+        <div className="mx-auto max-w-5xl grid grid-cols-1 gap-x-8 gap-y-12 lg:grid-cols-2">
           {/* Contact Information */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-col gap-8"
-          >
+          <div className="flex flex-col gap-8 justify-center">
             <div className="flex items-center gap-x-6">
               <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50">
                 <Mail className="h-6 w-6 text-blue-600" />
               </div>
               <div>
                 <h3 className="text-base font-semibold text-gray-900">Email</h3>
-                <p className="mt-1 text-gray-600">info@rafikipartners.com</p>
+                <p className="mt-1 text-gray-600">rafikiconsult@gmail.com</p>
               </div>
             </div>
 
@@ -100,7 +157,7 @@ export function Contact() {
               </div>
               <div>
                 <h3 className="text-base font-semibold text-gray-900">Phone</h3>
-                <p className="mt-1 text-gray-600">+254 (0) 700 000000</p>
+                <p className="mt-1 text-gray-600">+254 769 396 442</p>
               </div>
             </div>
 
@@ -113,157 +170,118 @@ export function Contact() {
                   Office
                 </h3>
                 <p className="mt-1 text-gray-600">
-                  Kilimani Business Center
+                  Rehema House, 4th Floor, Kimathi street
                   <br />
                   Nairobi, Kenya
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="rounded-2xl bg-white p-8 shadow-lg ring-1 ring-gray-200"
-          >
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  {...register("name")}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
-                />
-                {errors.name && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.name.message}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  {...register("email")}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
-                />
-                {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.email.message}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Phone
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  {...register("phone")}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
-                />
-                {errors.phone && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.phone.message}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <label
-                  htmlFor="project_type"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Project Type
-                </label>
-                <select
-                  id="project_type"
-                  {...register("project_type")}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
-                >
-                  <option value="">Select a project type</option>
-                  <option value="residential">Residential Design</option>
-                  <option value="commercial">Commercial Design</option>
-                  <option value="renovation">Building Renovation</option>
-                  <option value="consultation">Consultation</option>
-                  <option value="other">Other</option>
-                </select>
-                {errors.project_type && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.project_type.message}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  rows={4}
-                  {...register("message")}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
-                />
-                {errors.message && (
-                  <p className="mt-1 text-sm text-red-600">
-                    {errors.message.message}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <Button
-                  type="submit"
-                  className="w-full"
-                  disabled={isSubmitting}
-                  rightIcon={
-                    isSubmitting ? (
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                    ) : (
-                      <Send className="h-4 w-4" />
-                    )
-                  }
-                >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </Button>
-              </div>
-
-              {submitSuccess && (
-                <p className="text-center text-sm text-green-600">
-                  Thank you for your message. We'll get back to you soon!
+          <div className="flex flex-col bg-white h-auto w-full rounded-3xl shadow-lg">
+            <main className="flex flex-1 flex-col items-center justify-center px-4">
+              <form
+                onSubmit={handleSubmit}
+                className="w-full max-w-md bg-white shadow-lg rounded-3xl p-10 flex flex-col items-center"
+              >
+                <h2 className="text-4xl font-extrabold mb-4 text-center">
+                  Send us a message
+                </h2>
+                <p className="text-base text-gray-600 mb-6 text-center">
+                  Fill out the form below and we'll get back to you as soon as
+                  possible.
                 </p>
-              )}
-            </form>
-          </motion.div>
+
+                {error && (
+                  <p className="text-red-500 mb-2 text-center">{error}</p>
+                )}
+                {success && (
+                  <p className="text-green-500 mb-2 text-center">
+                    Thank you for your message. We'll get back to you soon!
+                  </p>
+                )}
+
+                <div className="bg-gray-100 rounded-3xl py-2 px-1.5 mb-3.5 text-center w-full">
+                  {/* Name field */}
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Full Name *"
+                    className="w-full bg-white text-gray-800 rounded-tl-2xl rounded-tr-2xl outline-none px-4 py-2 focus:ring-2 focus:ring-blue-600 text-center transition-all mb-1.5"
+                    aria-label="Full name"
+                  />
+
+                  {/* Email field */}
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email Address *"
+                    className="w-full bg-white text-gray-800 outline-none px-4 py-2 focus:ring-2 focus:ring-blue-600 text-center transition-all mb-1.5"
+                    aria-label="Email address"
+                  />
+
+                  {/* Phone field */}
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="Phone Number *"
+                    className="w-full bg-white text-gray-800 outline-none px-4 py-2 focus:ring-2 focus:ring-blue-600 text-center transition-all mb-1.5"
+                    aria-label="Phone number"
+                  />
+
+                  {/* Project Type field */}
+                  <select
+                    value={projectType}
+                    onChange={(e) => setProjectType(e.target.value)}
+                    className="w-full bg-white text-gray-800 outline-none px-4 py-2 focus:ring-2 focus:ring-blue-600 text-center transition-all mb-1.5"
+                    aria-label="Project type"
+                  >
+                    <option value="">Select Project Type *</option>
+                    <option value="residential">Residential Design</option>
+                    <option value="commercial">Commercial Design</option>
+                    <option value="renovation">Building Renovation</option>
+                    <option value="consultation">Consultation</option>
+                    <option value="other">Other</option>
+                  </select>
+
+                  {/* Message field */}
+                  <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Your Message *"
+                    rows={4}
+                    className="w-full bg-white text-gray-800 rounded-bl-2xl rounded-br-2xl outline-none px-4 py-2 focus:ring-2 focus:ring-blue-600 text-center transition-all resize-none"
+                    aria-label="Message"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className={`w-full px-5 py-2 font-extrabold rounded-full shadow-md transition-all ${
+                    loading
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-700 hover:to-blue-600"
+                  }`}
+                >
+                  {loading ? "Sending..." : "Send Message"}
+                </button>
+
+                {/* Loading Bar */}
+                {loading && (
+                  <div className="w-full mt-4 h-1 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="h-full bg-blue-600 animate-[loadingBar_1.5s_ease-in-out_infinite]" />
+                  </div>
+                )}
+              </form>
+            </main>
+          </div>
         </div>
       </div>
     </section>
   );
-}
-
-export default Contact;
+};

@@ -45,6 +45,11 @@ export function Header() {
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"
       >
+        <img
+          src="https://res.cloudinary.com/dgu9ietkl/image/upload/v1759213733/Badge_Logo_xh9hgw.png"
+          alt="Smartistics Logo"
+          className="w-10 h-10 mr-4"
+        />
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="text-xl font-bold tracking-tight text-gray-900">
@@ -70,8 +75,8 @@ export function Header() {
               className={cn(
                 "text-sm font-semibold leading-6 transition-colors",
                 pathname === item.href
-                  ? "text-blue-600"
-                  : "text-gray-900 hover:text-blue-600",
+                  ? "text-yellow-500"
+                  : "text-gray-900 hover:text-amber-500",
               )}
             >
               {item.name}

@@ -28,7 +28,8 @@ export function Hero() {
         >
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
             Building{" "}
-            <span className="text-blue-600">Tomorrow&apos;s Spaces</span> Today
+            <span className="text-yellow-500">Tomorrow&apos;s Spaces</span>{" "}
+            Today
           </h1>
           <p className="mt-6 text-lg leading-8 text-gray-600">
             Transforming architectural visions into reality. We specialize in

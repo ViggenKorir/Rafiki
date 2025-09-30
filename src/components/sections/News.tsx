@@ -1,45 +1,48 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Button } from '@/components/ui/Button';
-import { formatDate } from '@/lib/utils';
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/Button";
+import { formatDate } from "@/lib/utils";
 
 // Sample news data - replace with actual data from your backend
 const newsItems = [
   {
     id: 1,
-    title: 'Rafiki Partners Wins Sustainable Design Award',
+    title: "Rafiki Partners Wins Sustainable Design Award",
     excerpt:
-      'Our eco-friendly office complex project recognized for innovative sustainable design practices.',
-    date: '2024-01-15',
-    author: 'John Doe',
-    category: 'Awards',
-    imageUrl: '/images/news/award-ceremony.jpg',
-    slug: 'sustainable-design-award',
+      "Our eco-friendly office complex project recognized for innovative sustainable design practices.",
+    date: "2024-01-15",
+    author: "John Doe",
+    category: "Awards",
+    imageUrl:
+      "https://res.cloudinary.com/dgu9ietkl/image/upload/v1759230597/PlastikiRafikiCSR_1_ksa1ca.jpg",
+    slug: "sustainable-design-award",
   },
   {
     id: 2,
-    title: 'New Residential Project Launch in Karen',
+    title: "New Residential Project Launch in Karen",
     excerpt:
-      'Announcing our latest luxury residential development project in Karen, Nairobi.',
-    date: '2024-01-10',
-    author: 'Jane Smith',
-    category: 'Projects',
-    imageUrl: '/images/news/karen-project.jpg',
-    slug: 'karen-project-launch',
+      "Announcing our latest luxury residential development project in Karen, Nairobi.",
+    date: "2024-01-10",
+    author: "Jane Smith",
+    category: "Projects",
+    imageUrl:
+      "https://res.cloudinary.com/dgu9ietkl/image/upload/v1759228790/architect-s-design-space-stockcake_t85kqi.jpg",
+    slug: "karen-project-launch",
   },
   {
     id: 3,
-    title: 'Construction Industry Trends 2024',
+    title: "Construction Industry Trends 2024",
     excerpt:
-      'Our insights on the latest construction and architectural trends shaping the industry.',
-    date: '2024-01-05',
-    author: 'Michael Johnson',
-    category: 'Industry',
-    imageUrl: '/images/news/industry-trends.jpg',
-    slug: 'construction-trends-2024',
+      "Our insights on the latest construction and architectural trends shaping the industry.",
+    date: "2024-01-05",
+    author: "Michael Johnson",
+    category: "Industry",
+    imageUrl:
+      "https://res.cloudinary.com/dgu9ietkl/image/upload/v1759230603/Construction-Technology-Trends-1_bm8ytn.webp",
+    slug: "construction-trends-2024",
   },
 ];
 
@@ -53,15 +56,15 @@ export function News() {
     <section id="news" className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-base font-semibold leading-7 text-blue-600">
+          <h2 className="text-base font-semibold leading-7 text-yellow-500">
             Latest News
           </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Updates & Insights
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Stay informed about our latest projects, industry insights, and company
-            news.
+            Stay informed about our latest projects, industry insights, and
+            company news.
           </p>
         </div>
 

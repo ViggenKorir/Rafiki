@@ -34,12 +34,12 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        message: "Your inquiry has been submitted successfully. We'll get back to you soon!",
-        id: inquiry.id
+        message:
+          "Your inquiry has been submitted successfully. We'll get back to you soon!",
+        id: inquiry.id,
       },
-      { status: 200 }
+      { status: 200 },
     );
-
   } catch (error) {
     console.error("Contact form submission error:", error);
 
@@ -48,9 +48,9 @@ export async function POST(request: NextRequest) {
         {
           success: false,
           message: "Invalid form data",
-          errors: error.errors
+          errors: error.errors,
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
         success: false,
         message: "An error occurred while processing your request. Please try again later."
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -77,7 +77,7 @@ export function Services() {
     <section id="services" className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-base font-semibold leading-7 text-blue-600">
+          <h2 className="text-base font-semibold leading-7 text-yellow-500">
             Our Services
           </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -105,7 +105,7 @@ export function Services() {
                 className="group relative flex flex-col rounded-2xl border border-gray-200 p-6 hover:border-blue-500 hover:shadow-lg"
               >
                 <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
-                  <service.icon className="h-5 w-5 flex-none text-blue-600" />
+                  <service.icon className="h-5 w-5 flex-none text-yellow-500" />
                   {service.name}
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">

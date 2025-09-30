@@ -13,7 +13,8 @@ const projects = [
     title: "Modern Office Complex",
     category: "Commercial",
     location: "Nairobi, Kenya",
-    imageUrl: "/images/portfolio/office-complex.jpg",
+    imageUrl:
+      "https://res.cloudinary.com/dgu9ietkl/image/upload/v1759228790/architect-s-design-space-stockcake_t85kqi.jpg",
     description:
       "A state-of-the-art office complex featuring sustainable design elements.",
   },
@@ -22,7 +23,8 @@ const projects = [
     title: "Luxury Residential Estate",
     category: "Residential",
     location: "Karen, Nairobi",
-    imageUrl: "/images/portfolio/residential-estate.jpg",
+    imageUrl:
+      "https://res.cloudinary.com/dgu9ietkl/image/upload/v1759229308/hq720_flh1n7.jpg",
     description: "High-end residential development with modern amenities.",
   },
   {
@@ -30,7 +32,8 @@ const projects = [
     title: "Shopping Mall Renovation",
     category: "Commercial",
     location: "Mombasa, Kenya",
-    imageUrl: "/images/portfolio/mall-renovation.jpg",
+    imageUrl:
+      "https://res.cloudinary.com/dgu9ietkl/image/upload/v1759229659/Nairobi-Fashion-Hub-shopping-mall-kenya-Top-20_ddftch.jpg",
     description:
       "Complete renovation and modernization of an existing shopping center.",
   },
@@ -39,7 +42,8 @@ const projects = [
     title: "Eco-Friendly Apartments",
     category: "Residential",
     location: "Kilimani, Nairobi",
-    imageUrl: "/images/portfolio/eco-apartments.jpg",
+    imageUrl:
+      "https://res.cloudinary.com/dgu9ietkl/image/upload/v1759229804/33A36322-9801-431D-A92A-FD229EB589CA_hnjn5u.webp",
     description:
       "Sustainable apartment complex with green building certification.",
   },
@@ -48,7 +52,8 @@ const projects = [
     title: "Healthcare Center",
     category: "Healthcare",
     location: "Kisumu, Kenya",
-    imageUrl: "/images/portfolio/healthcare-center.jpg",
+    imageUrl:
+      "https://res.cloudinary.com/dgu9ietkl/image/upload/v1759229939/tenwek-drone-scaled_pywsai.jpg",
     description: "Modern medical facility designed for optimal patient care.",
   },
   {
@@ -56,7 +61,8 @@ const projects = [
     title: "Educational Campus",
     category: "Education",
     location: "Nakuru, Kenya",
-    imageUrl: "/images/portfolio/education-campus.jpg",
+    imageUrl:
+      "https://res.cloudinary.com/dgu9ietkl/image/upload/v1759230397/B869-School_x2yvlb.jpg",
     description:
       "Comprehensive educational facility with state-of-the-art amenities.",
   },

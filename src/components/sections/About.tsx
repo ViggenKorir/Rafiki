@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { Button } from '@/components/ui/Button';
-import { ArrowRight } from 'lucide-react';
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { Button } from "@/components/ui/Button";
+import { ArrowRight } from "lucide-react";
 
 export function About() {
   return (
@@ -18,17 +18,17 @@ export function About() {
             className="lg:pr-8 lg:pt-4"
           >
             <div className="lg:max-w-lg">
-              <h2 className="text-base font-semibold leading-7 text-blue-600">
+              <h2 className="text-base font-semibold leading-7 text-yellow-500">
                 About Rafiki Partners
               </h2>
               <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                 Building Excellence Through Partnership
               </p>
               <p className="mt-6 text-lg leading-8 text-gray-600">
-                Founded in 2020, Rafiki Partners has established itself as a leading
-                architectural and construction firm in East Africa. Our commitment
-                to excellence, innovation, and sustainable development sets us apart
-                in the industry.
+                Founded in 2020, Rafiki Partners has established itself as a
+                leading architectural and construction firm in East Africa. Our
+                commitment to excellence, innovation, and sustainable
+                development sets us apart in the industry.
               </p>
               <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
                 <div className="relative pl-9">
@@ -46,7 +46,7 @@ export function About() {
                       />
                     </svg>
                     Expert Team.
-                  </dt>{' '}
+                  </dt>{" "}
                   <dd className="inline">
                     Our professionals bring decades of combined experience in
                     architecture, construction, and project management.
@@ -67,10 +67,10 @@ export function About() {
                       />
                     </svg>
                     Quality Assurance.
-                  </dt>{' '}
+                  </dt>{" "}
                   <dd className="inline">
-                    We maintain the highest standards of quality through rigorous
-                    processes and attention to detail.
+                    We maintain the highest standards of quality through
+                    rigorous processes and attention to detail.
                   </dd>
                 </div>
                 <div className="relative pl-9">
@@ -89,7 +89,7 @@ export function About() {
                       />
                     </svg>
                     Client Focus.
-                  </dt>{' '}
+                  </dt>{" "}
                   <dd className="inline">
                     Your vision is our priority. We work closely with clients to
                     ensure complete satisfaction.
@@ -99,8 +99,8 @@ export function About() {
               <div className="mt-10">
                 <Button
                   onClick={() => {
-                    const contactSection = document.getElementById('contact');
-                    contactSection?.scrollIntoView({ behavior: 'smooth' });
+                    const contactSection = document.getElementById("contact");
+                    contactSection?.scrollIntoView({ behavior: "smooth" });
                   }}
                   rightIcon={<ArrowRight className="h-4 w-4" />}
                 >
@@ -117,13 +117,13 @@ export function About() {
             className="relative"
           >
             <Image
-              src="/images/about-team.jpg"
+              src="https://res.cloudinary.com/dgu9ietkl/image/upload/v1759228791/Customer-images_0049_hero-people-collaborating-at-table-Colliers-Project-Leaders_rtqmvw.avif"
               alt="Rafiki Partners Team"
-              width={2432}
-              height={1442}
+              width={432}
+              height={342}
               className="w-[48rem] max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:-ml-0"
             />
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-tr from-blue-600/30 to-transparent" />
+            {/*<div className="absolute inset-0 rounded-xl bg-gradient-to-tr from-blue-600/30 to-transparent" />*/}
           </motion.div>
         </div>
       </div>
