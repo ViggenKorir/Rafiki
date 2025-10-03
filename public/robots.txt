@@ -1,0 +1,24 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Allow Google Search crawler
+User-agent: Googlebot
+Allow: /
+
+# Allow Google's AI/LLM crawler (Gemini / AI Overviews)
+User-agent: Google-Extended
+Allow: /
+
+# Allow Bing Search crawler
+User-agent: Bingbot
+Allow: /
+
+# Block private routes
+User-agent: *
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /admin/
+
+# Sitemap (if you generate one)
+Sitemap: https://yourdomain.com/sitemap.xml
